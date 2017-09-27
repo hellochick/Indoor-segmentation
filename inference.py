@@ -16,7 +16,6 @@ IMG_MEAN = np.array((104.00698793,116.66876762,122.67891434), dtype=np.float32)
 
 NUM_CLASSES = 27
 SAVE_DIR = './output/'
-INPUT_DIR = './input/'
 RESTORE_PATH = './restore_weights/'
 matfn = 'color150.mat'
 
@@ -24,6 +23,8 @@ def get_arguments():
     parser = argparse.ArgumentParser(description="Indoor segmentation parser.")
     parser.add_argument("--img_path", type=str, default='',
                         help="Path to the RGB image file.")
+    parser.add_argument("--restore_from", type=str, default=RESTORE_PATH,
+                        help="checkpoint location")
 
     return parser.parse_args()
 
@@ -57,22 +58,20 @@ def load(saver, sess, ckpt_path):
 
 def main():
     args = get_arguments()
-    filename = args.img_path
-    img_path = INPUT_DIR + args.img_path
+    filename = args.img_path.split('/')[-1]
+    file_type = filename.split('.')[-1]
 
-    file_type = img_path.split('.')[-1]
-
-    if os.path.isfile(img_path):
+    if os.path.isfile(args.img_path):
         print('successful load img: {0}'.format(args.img_path))
     else:
-        print('not found file: {0}'.format(img_path))
+        print('not found file: {0}'.format(args.img_path))
         sys.exit(0)
 
     # Prepare image.
     if file_type.lower() == 'png':
-        img = tf.image.decode_png(tf.read_file(img_path), channels=3)
+        img = tf.image.decode_png(tf.read_file(args.img_path), channels=3)
     elif file_type.lower() == 'jpg':
-        img = tf.image.decode_jpeg(tf.read_file(img_path), channels=3)
+        img = tf.image.decode_jpeg(tf.read_file(args.img_path), channels=3)
     else:
         print('cannot process {0} file.'.format(file_type))
 
@@ -103,7 +102,7 @@ def main():
     sess.run(init)
 
     # Load weights.
-    ckpt = tf.train.get_checkpoint_state(RESTORE_PATH)
+    ckpt = tf.train.get_checkpoint_state(args.restore_from)
 
     if ckpt and ckpt.model_checkpoint_path:
         loader = tf.train.Saver(var_list=restore_var)
