@@ -3,7 +3,7 @@
 # The batch normalisation layer is provided by
 # the slim library (https://github.com/tensorflow/tensorflow/tree/master/tensorflow/contrib/slim).
 
-from network import Network
+from kaffe.tensorflow import Network
 import tensorflow as tf
 
 class DeepLabResNetModel(Network):
@@ -105,12 +105,12 @@ class DeepLabResNetModel(Network):
                    'bn3b3_branch2c')
              .add(name='res3b3')
              .relu(name='res3b3_relu')
-             .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4a_branch1')
+             .conv(1, 1, 1024, 2, 2, biased=False, relu=False, name='res4a_branch1')
              .batch_normalization(is_training=is_training, activation_fn=None, name='bn4a_branch1'))
 
         ### block 4
         (self.feed('res3b3_relu')
-             .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4a_branch2a')
+             .conv(1, 1, 256, 2, 2, biased=False, relu=False, name='res4a_branch2a')
              .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4a_branch2a')
              .atrous_conv(3, 3, 256, 1, padding='SAME', biased=False, relu=False, name='res4a_branch2b')
              .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4a_branch2b')
@@ -123,7 +123,7 @@ class DeepLabResNetModel(Network):
              .relu(name='res4a_relu')
              .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b1_branch2a')
              .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b1_branch2a')
-             .atrous_conv(3, 3, 256, 2, padding='SAME', biased=False, relu=False, name='res4b1_branch2b')
+             .atrous_conv(3, 3, 256, 4, padding='SAME', biased=False, relu=False, name='res4b1_branch2b')
              .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b1_branch2b')
              .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b1_branch2c')
              .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b1_branch2c'))
@@ -134,7 +134,7 @@ class DeepLabResNetModel(Network):
              .relu(name='res4b1_relu')
              .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b2_branch2a')
              .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b2_branch2a')
-             .atrous_conv(3, 3, 256, 3, padding='SAME', biased=False, relu=False, name='res4b2_branch2b')
+             .atrous_conv(3, 3, 256, 2, padding='SAME', biased=False, relu=False, name='res4b2_branch2b')
              .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b2_branch2b')
              .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b2_branch2c')
              .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b2_branch2c'))
@@ -148,7 +148,7 @@ class DeepLabResNetModel(Network):
              .relu(name='res4b2_relu')
              .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b3_branch2a')
              .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b3_branch2a')
-             .atrous_conv(3, 3, 256, 1, padding='SAME', biased=False, relu=False, name='res4b3_branch2b')
+             .atrous_conv(3, 3, 256, 2, padding='SAME', biased=False, relu=False, name='res4b3_branch2b')
              .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b3_branch2b')
              .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b3_branch2c')
              .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b3_branch2c'))
@@ -159,7 +159,7 @@ class DeepLabResNetModel(Network):
              .relu(name='res4b3_relu')
              .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b4_branch2a')
              .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b4_branch2a')
-             .atrous_conv(3, 3, 256, 2, padding='SAME', biased=False, relu=False, name='res4b4_branch2b')
+             .atrous_conv(3, 3, 256, 4, padding='SAME', biased=False, relu=False, name='res4b4_branch2b')
              .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b4_branch2b')
              .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b4_branch2c')
              .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b4_branch2c'))
@@ -170,13 +170,207 @@ class DeepLabResNetModel(Network):
              .relu(name='res4b4_relu')
              .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b5_branch2a')
              .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b5_branch2a')
-             .atrous_conv(3, 3, 256, 3, padding='SAME', biased=False, relu=False, name='res4b5_branch2b')
+             .atrous_conv(3, 3, 256, 2, padding='SAME', biased=False, relu=False, name='res4b5_branch2b')
              .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b5_branch2b')
              .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b5_branch2c')
              .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b5_branch2c'))
 
+        ### block 5
+
+        ### block 6
         (self.feed('res4b4_relu',
                    'bn4b5_branch2c')
+             .add(name='res4b5')
+             .relu(name='res4b5_relu')
+             .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b6_branch2a')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b6_branch2a')
+             .atrous_conv(3, 3, 256, 2, padding='SAME', biased=False, relu=False, name='res4b6_branch2b')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b6_branch2b')
+             .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b6_branch2c')
+             .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b6_branch2c'))
+
+        (self.feed('res4b5_relu',
+                   'bn4b6_branch2c')
+             .add(name='res4b6')
+             .relu(name='res4b6_relu')
+             .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b7_branch2a')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b7_branch2a')
+             .atrous_conv(3, 3, 256, 4, padding='SAME', biased=False, relu=False, name='res4b7_branch2b')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b7_branch2b')
+             .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b7_branch2c')
+             .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b7_branch2c'))
+
+        (self.feed('res4b6_relu',
+                   'bn4b7_branch2c')
+             .add(name='res4b7')
+             .relu(name='res4b7_relu')
+             .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b8_branch2a')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b8_branch2a')
+             .atrous_conv(3, 3, 256, 2, padding='SAME', biased=False, relu=False, name='res4b8_branch2b')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b8_branch2b')
+             .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b8_branch2c')
+             .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b8_branch2c'))
+
+        ### block 6
+
+        ### block 7
+        (self.feed('res4b7_relu',
+                   'bn4b8_branch2c')
+             .add(name='res4b8')
+             .relu(name='res4b8_relu')
+             .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b9_branch2a')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b9_branch2a')
+             .atrous_conv(3, 3, 256, 2, padding='SAME', biased=False, relu=False, name='res4b9_branch2b')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b9_branch2b')
+             .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b9_branch2c')
+             .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b9_branch2c'))
+
+        (self.feed('res4b8_relu',
+                   'bn4b9_branch2c')
+             .add(name='res4b9')
+             .relu(name='res4b9_relu')
+             .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b10_branch2a')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b10_branch2a')
+             .atrous_conv(3, 3, 256, 4, padding='SAME', biased=False, relu=False, name='res4b10_branch2b')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b10_branch2b')
+             .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b10_branch2c')
+             .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b10_branch2c'))
+
+        (self.feed('res4b9_relu',
+                   'bn4b10_branch2c')
+             .add(name='res4b10')
+             .relu(name='res4b10_relu')
+             .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b11_branch2a')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b11_branch2a')
+             .atrous_conv(3, 3, 256, 2, padding='SAME', biased=False, relu=False, name='res4b11_branch2b')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b11_branch2b')
+             .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b11_branch2c')
+             .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b11_branch2c'))
+
+        ### block 7
+        (self.feed('res4b10_relu',
+                   'bn4b11_branch2c')
+             .add(name='res4b11')
+             .relu(name='res4b11_relu')
+             .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b12_branch2a')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b12_branch2a')
+             .atrous_conv(3, 3, 256, 2, padding='SAME', biased=False, relu=False, name='res4b12_branch2b')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b12_branch2b')
+             .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b12_branch2c')
+             .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b12_branch2c'))
+
+        (self.feed('res4b11_relu',
+                   'bn4b12_branch2c')
+             .add(name='res4b12')
+             .relu(name='res4b12_relu')
+             .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b13_branch2a')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b13_branch2a')
+             .atrous_conv(3, 3, 256, 4, padding='SAME', biased=False, relu=False, name='res4b13_branch2b')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b13_branch2b')
+             .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b13_branch2c')
+             .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b13_branch2c'))
+
+        (self.feed('res4b12_relu',
+                   'bn4b13_branch2c')
+             .add(name='res4b13')
+             .relu(name='res4b13_relu')
+             .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b14_branch2a')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b14_branch2a')
+             .atrous_conv(3, 3, 256, 2, padding='SAME', biased=False, relu=False, name='res4b14_branch2b')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b14_branch2b')
+             .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b14_branch2c')
+             .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b14_branch2c'))
+
+        (self.feed('res4b13_relu',
+                   'bn4b14_branch2c')
+             .add(name='res4b14')
+             .relu(name='res4b14_relu')
+             .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b15_branch2a')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b15_branch2a')
+             .atrous_conv(3, 3, 256, 2, padding='SAME', biased=False, relu=False, name='res4b15_branch2b')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b15_branch2b')
+             .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b15_branch2c')
+             .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b15_branch2c'))
+
+        (self.feed('res4b14_relu',
+                   'bn4b15_branch2c')
+             .add(name='res4b15')
+             .relu(name='res4b15_relu')
+             .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b16_branch2a')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b16_branch2a')
+             .atrous_conv(3, 3, 256, 4, padding='SAME', biased=False, relu=False, name='res4b16_branch2b')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b16_branch2b')
+             .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b16_branch2c')
+             .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b16_branch2c'))
+
+        (self.feed('res4b15_relu',
+                   'bn4b16_branch2c')
+             .add(name='res4b16')
+             .relu(name='res4b16_relu')
+             .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b17_branch2a')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b17_branch2a')
+             .atrous_conv(3, 3, 256, 2, padding='SAME', biased=False, relu=False, name='res4b17_branch2b')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b17_branch2b')
+             .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b17_branch2c')
+             .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b17_branch2c'))
+
+        (self.feed('res4b16_relu',
+                   'bn4b17_branch2c')
+             .add(name='res4b17')
+             .relu(name='res4b17_relu')
+             .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b18_branch2a')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b18_branch2a')
+             .atrous_conv(3, 3, 256, 2, padding='SAME', biased=False, relu=False, name='res4b18_branch2b')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b18_branch2b')
+             .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b18_branch2c')
+             .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b18_branch2c'))
+
+        (self.feed('res4b17_relu',
+                   'bn4b18_branch2c')
+             .add(name='res4b18')
+             .relu(name='res4b18_relu')
+             .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b19_branch2a')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b19_branch2a')
+             .atrous_conv(3, 3, 256, 4, padding='SAME', biased=False, relu=False, name='res4b19_branch2b')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b19_branch2b')
+             .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b19_branch2c')
+             .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b19_branch2c'))
+
+        (self.feed('res4b18_relu',
+                   'bn4b19_branch2c')
+             .add(name='res4b19')
+             .relu(name='res4b19_relu')
+             .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b20_branch2a')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b20_branch2a')
+             .atrous_conv(3, 3, 256, 2, padding='SAME', biased=False, relu=False, name='res4b20_branch2b')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b20_branch2b')
+             .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b20_branch2c')
+             .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b20_branch2c'))
+
+        (self.feed('res4b19_relu',
+                   'bn4b20_branch2c')
+             .add(name='res4b20')
+             .relu(name='res4b20_relu')
+             .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b21_branch2a')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b21_branch2a')
+             .atrous_conv(3, 3, 256, 2, padding='SAME', biased=False, relu=False, name='res4b21_branch2b')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b21_branch2b')
+             .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b21_branch2c')
+             .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b21_branch2c'))
+
+        (self.feed('res4b20_relu',
+                   'bn4b21_branch2c')
+             .add(name='res4b21')
+             .relu(name='res4b21_relu')
+             .conv(1, 1, 256, 1, 1, biased=False, relu=False, name='res4b22_branch2a')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b22_branch2a')
+             .atrous_conv(3, 3, 256, 4, padding='SAME', biased=False, relu=False, name='res4b22_branch2b')
+             .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn4b22_branch2b')
+             .conv(1, 1, 1024, 1, 1, biased=False, relu=False, name='res4b22_branch2c')
+             .batch_normalization(is_training=is_training, activation_fn=None, name='bn4b22_branch2c'))
+
+        (self.feed('res4b21_relu',
+                   'bn4b22_branch2c')
              .add(name='res4b22')
              .relu(name='res4b22_relu')
              .conv(1, 1, 2048, 1, 1, biased=False, relu=False, name='res5a_branch1')
@@ -185,7 +379,7 @@ class DeepLabResNetModel(Network):
         (self.feed('res4b22_relu')
              .conv(1, 1, 512, 1, 1, biased=False, relu=False, name='res5a_branch2a')
              .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn5a_branch2a')
-             .atrous_conv(3, 3, 512, 3, padding='SAME', biased=False, relu=False, name='res5a_branch2b')
+             .atrous_conv(3, 3, 512, 4, padding='SAME', biased=False, relu=False, name='res5a_branch2b')
              .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn5a_branch2b')
              .conv(1, 1, 2048, 1, 1, biased=False, relu=False, name='res5a_branch2c')
              .batch_normalization(is_training=is_training, activation_fn=None, name='bn5a_branch2c'))
@@ -196,7 +390,7 @@ class DeepLabResNetModel(Network):
              .relu(name='res5a_relu')
              .conv(1, 1, 512, 1, 1, biased=False, relu=False, name='res5b_branch2a')
              .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn5b_branch2a')
-             .atrous_conv(3, 3, 512, 4, padding='SAME', biased=False, relu=False, name='res5b_branch2b')
+             .atrous_conv(3, 3, 512, 8, padding='SAME', biased=False, relu=False, name='res5b_branch2b')
              .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn5b_branch2b')
              .conv(1, 1, 2048, 1, 1, biased=False, relu=False, name='res5b_branch2c')
              .batch_normalization(is_training=is_training, activation_fn=None, name='bn5b_branch2c'))
@@ -207,7 +401,7 @@ class DeepLabResNetModel(Network):
              .relu(name='res5b_relu')
              .conv(1, 1, 512, 1, 1, biased=False, relu=False, name='res5c_branch2a')
              .batch_normalization(is_training=is_training, activation_fn=tf.nn.relu, name='bn5c_branch2a')
-             .atrous_conv(3, 3, 512, 5, padding='SAME', biased=False, relu=False, name='res5c_branch2b')
+             .atrous_conv(3, 3, 512, 16, padding='SAME', biased=False, relu=False, name='res5c_branch2b')
              .batch_normalization(activation_fn=tf.nn.relu, name='bn5c_branch2b', is_training=is_training)
              .conv(1, 1, 2048, 1, 1, biased=False, relu=False, name='res5c_branch2c')
              .batch_normalization(is_training=is_training, activation_fn=None, name='bn5c_branch2c'))
@@ -216,15 +410,15 @@ class DeepLabResNetModel(Network):
                    'bn5c_branch2c')
              .add(name='res5c')
              .relu(name='res5c_relu')
-             .atrous_conv(3, 3, 256, 12, padding='SAME', relu=False, name='fc1_voc12_c0')
+             .atrous_conv(3, 3, 256, 6, padding='SAME', relu=False, name='fc1_voc12_c0')
              .batch_normalization(is_training=is_training, activation_fn=None, name='fc1_voc12_c0_bn'))
 
         (self.feed('res5c_relu')
-             .atrous_conv(3, 3, 256, 24, padding='SAME', relu=False, name='fc1_voc12_c1')
+             .atrous_conv(3, 3, 256, 12, padding='SAME', relu=False, name='fc1_voc12_c1')
              .batch_normalization(is_training=is_training, activation_fn=None, name='fc1_voc12_c1_bn'))
 
         (self.feed('res5c_relu')
-             .atrous_conv(3, 3, 256, 36, padding='SAME', relu=False, name='fc1_voc12_c2')
+             .atrous_conv(3, 3, 256, 18, padding='SAME', relu=False, name='fc1_voc12_c2')
              .batch_normalization(is_training=is_training, activation_fn=None, name='fc1_voc12_c2_bn'))
 
         (self.feed('res5c_relu')
