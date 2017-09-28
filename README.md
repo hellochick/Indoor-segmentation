@@ -22,7 +22,7 @@ python inference --img_path=FILENAME --restore-from=CHECKPOINT_DIR
 ```
 ## Result
 ### Video
-![Demo video](https://www.youtube.com/watch?v=4OqW3M-eqaQ&feature=youtu.be)
+[![Demo video](https://img.youtube.com/vi/4OqW3M-eqaQ/0.jpg)](https://youtu.be/4OqW3M-eqaQ)
 ### Image
 Input image                |  Output image
 :-------------------------:|:-------------------------:
