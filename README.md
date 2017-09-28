@@ -9,7 +9,7 @@
 5 (tree)      <- 18(plant)
 8 (furniture) <- 8(bed), 11(cabinet), 14(sofa), 16(table), 19(curtain), 20(chair), 25(shelf), 34(desk) 
 7 (stairs)    <- 54(stairs)
-26(others)    <- class number large than 26
+26(others)    <- class number larger than 26
 ```
 
   
