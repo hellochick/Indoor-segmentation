@@ -81,6 +81,8 @@ def main():
     # Extract mean.
     img -= IMG_MEAN
 
+    img = tf.transpose(img, [2, 0, 1])
+
     # Create network.
     net = DeepLabResNetModel({'data': tf.expand_dims(img, dim=0)}, is_training=False, num_classes=NUM_CLASSES)
 
@@ -89,7 +91,8 @@ def main():
 
     # Predictions.
     raw_output = net.layers['fc_out']
-    raw_output_up = tf.image.resize_bilinear(raw_output, tf.shape(img)[0:2,])
+    raw_output = tf.transpose(raw_output, [0, 2, 3, 1])
+    raw_output_up = tf.image.resize_bilinear(raw_output, tf.shape(img)[1:3,])
     raw_output_up = tf.argmax(raw_output_up, dimension=3)
     pred = tf.expand_dims(raw_output_up, dim=3)
 
@@ -114,7 +117,7 @@ def main():
 
     # Perform inference.
     preds = sess.run(pred)
-
+   
     msk = decode_labels(preds, num_classes=NUM_CLASSES)
     im = Image.fromarray(msk[0])
     if not os.path.exists(SAVE_DIR):
