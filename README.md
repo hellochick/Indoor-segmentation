@@ -14,7 +14,9 @@
 
   
 ## Install 
-First get restore checkpoint from [Google Drive](https://drive.google.com/drive/folders/0B9CKOTmy0DyaQ2oxUHdtYUd2Mm8?usp=sharing) and put into `restore_weights` directory.
+First copy the ResNet101 folder [Google Drive](https://drive.google.com/drive/folders/0B9CKOTmy0DyaQ2oxUHdtYUd2Mm8?usp=sharing), (which contains the model checkpoint) to a local folder (CHECKPOINT DIR).
+
+Get the path to a png image (FILENAME)
 
 Run `inference.py` with `--img_path` and `--restore_from`
 ```
