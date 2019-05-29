@@ -1,6 +1,6 @@
 # Indoor-segmentation
 ## Introduction
-  This is an implementation of DeepLab-ResNet in TensorFlow for Indoor-scene segmentation on the [ade20k](http://sceneparsing.csail.mit.edu/) dataset. Since this model is for `robot navigating`, we `re-label 150 classes into 27 classes` in order to easily classify obstacles and road.  
+  This is an implementation of DeepLab-ResNet in TensorFlow for Indoor-scene segmentation on the [ade20k](http://sceneparsing.csail.mit.edu/) dataset. This code is inherited from [tensorflow-deeplab-resnet](https://github.com/DrSleep/tensorflow-deeplab-resnet) by [Drsleep](https://drsleep.github.io/). Since this model is for `robot navigating`, we `re-label 150 classes into 27 classes` in order to easily classify obstacles and road.  
 
 ### Re-label list: 
 ```
