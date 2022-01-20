@@ -14,7 +14,7 @@
 
   
 ## Install 
-First get restore checkpoint from [Google Drive](https://drive.google.com/drive/folders/0B9CKOTmy0DyaQ2oxUHdtYUd2Mm8?usp=sharing) and put into `restore_weights` directory.
+First get restore checkpoint from [Google Drive](https://drive.google.com/drive/folders/0Bv9CKOTmy0DyaQ2oxUHdtYUd2Mm8?resourcekey=0-dFGwpI_T5Bwsp3PaI55OqA&usp=sharing) and put into `restore_weights` directory.
 
 Run `inference.py` with `--img_path` and `--restore_from`
 ```
