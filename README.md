@@ -1,6 +1,6 @@
 # Indoor-segmentation
 ## Introduction
-  This is an implementation of DeepLab-ResNet in TensorFlow for Indoor-scene segmentation on the [ade20k](http://sceneparsing.csail.mit.edu/) dataset. This code is inherited from [tensorflow-deeplab-resnet](https://github.com/DrSleep/tensorflow-deeplab-resnet) by [Drsleep](https://drsleep.github.io/). Since this model is for `robot navigating`, we `re-label 150 classes into 27 classes` in order to easily classify obstacles and road.  
+  This is an implementation of TensorFlow-based (TF1) DeepLab-ResNet for Indoor-scene segmentation. The provided model is trained on the [ade20k](http://sceneparsing.csail.mit.edu/) dataset. The code is inherited from [tensorflow-deeplab-resnet](https://github.com/DrSleep/tensorflow-deeplab-resnet) by [Drsleep](https://drsleep.github.io/). Since this model is for `robot navigating`, we `re-label 150 classes into 27 classes` in order to easily classify obstacles and road.  
 
 ### Re-label list: 
 ```
@@ -13,13 +13,26 @@
 ```
 
   
-## Install 
-First get restore checkpoint from [Google Drive](https://drive.google.com/drive/folders/0Bv9CKOTmy0DyaQ2oxUHdtYUd2Mm8?resourcekey=0-dFGwpI_T5Bwsp3PaI55OqA&usp=sharing) and put into `restore_weights` directory.
+## Quick Start 
+### Install dependency 
+The codes are test on `Python 3.7`. Please run the following script to install the packages.
+```bash
+pip install -r requirements.txt
+```
 
-Run `inference.py` with `--img_path` and `--restore_from`
+### Download Pretrained Model
+Run the following script to download the provided pretrained model from Google Drive.
+```bash
+./download_models.sh
 ```
-python inference --img_path=FILENAME --restore_from=CHECKPOINT_DIR
+Or directly get the pretrained model from [Google Drive](https://drive.google.com/file/d/1o7QrlNxH6BX6uYatlR06-A_cutWD9sNg/view?usp=sharing).
+
+### Demo
+Run the following sample command for inference
 ```
+python inference.py --img_path input/IMG_0416_640x480.png --restore_from=pretrained_models/ResNet101/
+```
+
 ## Result
 ### Video
 [![Demo video](https://img.youtube.com/vi/4OqW3M-eqaQ/0.jpg)](https://youtu.be/4OqW3M-eqaQ)
