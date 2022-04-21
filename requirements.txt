@@ -1,0 +1,4 @@
+tensorflow-gpu==1.15.0
+scipy==1.7.3
+pillow==9.1.0
+gdown
