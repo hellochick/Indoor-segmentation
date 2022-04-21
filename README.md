@@ -20,7 +20,7 @@ The codes are test on `Python 3.7`. Please run the following script to install t
 pip install -r requirements.txt
 ```
 
-### Download Pretrained Model
+### Download pretrained model
 Run the following script to download the provided pretrained model from Google Drive.
 ```bash
 ./download_models.sh
