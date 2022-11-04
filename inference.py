@@ -3,7 +3,6 @@ from __future__ import print_function
 import argparse
 import os
 import sys
-import time
 import scipy.io as sio
 from PIL import Image
 
@@ -58,7 +57,7 @@ def load(saver, sess, ckpt_path):
 
 def main():
     args = get_arguments()
-    filename = args.img_path.split('/')[-1]
+    filename = os.path.basename(args.img_path)
     file_type = filename.split('.')[-1]
 
     if os.path.isfile(args.img_path):
@@ -119,9 +118,9 @@ def main():
     im = Image.fromarray(msk[0])
     if not os.path.exists(SAVE_DIR):
         os.makedirs(SAVE_DIR)
-    im.save(SAVE_DIR + filename)
+    im.save(os.path.join(SAVE_DIR + filename))
 
-    print('The output file has been saved to {0}'.format(SAVE_DIR + filename))
+    print('The output file has been saved to {0}'.format(os.path.join(SAVE_DIR + filename)))
 
 
 if __name__ == '__main__':
